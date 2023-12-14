@@ -14,7 +14,14 @@ def questions(request):
     serializer = QuestionNumSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     count: int = serializer.data['questions_num']
-    url: str = f'{settings.ENDPOINT}{count}'
-    get_and_save_questions(url)
+    url: str = f'{settings.ENDPOINT[:-1]}{count}'
+    try:
+        get_and_save_questions(url)
+    except Exception as error:
+        message = f'Сбой в работе программы: {error}'
+        return Response(
+            message,
+            status=status.HTTP_503_SERVICE_UNAVAILABLE
+        )
     serializer = QuestionSerializer(last_question)
     return Response(serializer.data, status=status.HTTP_200_OK)

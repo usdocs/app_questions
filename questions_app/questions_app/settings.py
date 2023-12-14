@@ -118,4 +118,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Constants
 
-ENDPOINT = 'https://jservice.io/api/random?count='
+ENDPOINT = 'https://jservice.io/api/random?count=1'
